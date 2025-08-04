@@ -1,76 +1,117 @@
 {
   "methodology": {
-    "overview": "[Replace with an overview of your methodology and approach.]",
+    "overview": "Our approach leverages unnatural patterns in facial biometric variations to distinguish authentic videos from deepfakes. Unlike previous identity-based techniques that require building models for specific individuals, our method is identity-agnostic and requires no external references.",
     "sections": [
       {
-        "id": "architecture",
-        "title": "[Method Section 1 Title]",
-        "summary": "[Brief summary of this methodology section]",
-        "content": "[Detailed description of your first methodology component. Replace this placeholder text with your actual methodology description.]",
+        "id": "dataset",
+        "title": "Dataset Preparation",
+        "summary": "We evaluate on the DeepSpeak dataset containing 21.2 hours of authentic video and 26.8 hours of deepfake content from 219 distinct identities.",
+        "content": "The DeepSpeak dataset (v1.0) contains authentic video of 219 distinct identities speaking in front of their web camera, along with face-swap and lip-sync deepfakes. Videos were pre-processed to extract faces, estimate head pose, and filter frames with occlusions or extreme poses.",
         "details": [
-          "[First implementation detail]",
-          "[Second implementation detail]",
-          "[Third implementation detail]",
-          "[Fourth implementation detail]"
+          "21.2 hours of authentic video across 219 identities",
+          "26.8 hours of face-swap and lip-sync deepfakes",
+          "Training/testing/validation split with no identity overlap",
+          "Face detection and pose estimation using Dlib and OpenCV",
+          "Filtering frames with head poses exceeding 25°/20°/20° (pitch/yaw/roll)"
         ],
-        "diagram": "assets/images/architecture-diagram.svg"
+        "diagram": "https://data.matsworld.io/ucbresearch/deepspeak-v1.0.gif",
+        "diagramCaption": "Image credit: https://huggingface.co/datasets/faridlab/deepspeak_v1"
       },
       {
-        "id": "training",
-        "title": "[Method Section 2 Title]",
-        "summary": "[Brief summary of this methodology section]",
-        "content": "[Detailed description of your second methodology component. Replace this placeholder text with your actual methodology description.]",
+        "id": "biometrics",
+        "title": "Biometric Extraction",
+        "summary": "We use ArcFace CNN architecture to extract 512-dimensional biometric representations and compute pairwise cosine similarity.",
+        "content": "For every identity, each video type (real AND deepfaked), and for each detected face in video frames, we extract a 512-dimensional biometric vectors using the ArcFace CNN architecture. We then compute pairwise cosine similarity between all face vectors in a video to capture identity consistency patterns.",
         "details": [
-          "[First training detail]",
-          "[Second training detail]",
-          "[Third training detail]",
-          "[Fourth training detail]",
-          "[Fifth training detail]"
+          "ArcFace CNN extracts 512-D biometric representations",
+          "Cosine similarity computed between all pairs of face vectors",
+          "Similarity metric ranges from -1 (least similar) to 1 (most similar)",
+          "Results in N(N-1)/2 pairwise similarities for N video frames",
+          "Captures facial identity consistency over time"
         ],
-        "diagram": "assets/images/training-pipeline.svg"
+        "diagram": "assets/images/similarity_distribution_1_1.png",
+        "diagramCaption": "Image Credit: Justin Norman"
       },
       {
-        "id": "evaluation",
-        "title": "[Method Section 3 Title]",
-        "summary": "[Brief summary of this methodology section]",
-        "content": "[Detailed description of your evaluation methodology. Replace this placeholder text with your actual evaluation approach.]",
+        "id": "features",
+        "title": "Feature Engineering",
+        "summary": "We extract statistical features from similarity distributions including moments, quantiles, and custom ratios.",
+        "content": "From the distribution of pairwise biometric similarities, we extract nine statistical features that quantify the differences between authentic and deepfake distributions. These include basic statistical moments and custom variance ratios.",
         "details": [
-          "[First evaluation detail]",
-          "[Second evaluation detail]",
-          "[Third evaluation detail]",
-          "[Fourth evaluation detail]",
-          "[Fifth evaluation detail]"
+          "Mean, variance, skewness, and kurtosis of similarity distribution",
+          "25th, 50th (median), and 75th quantiles",
+          "Variance-to-mean ratio (index of dispersion)",
+          "Kurtosis-to-variance ratio capturing distribution shape",
+          "Results in 9-dimensional feature vector per video"
         ],
-        "diagram": "assets/images/evaluation-metrics.svg"
+        "diagram": "assets/images/feature_engineering_diagram.png",
+        "diagramCaption": "Nine statistical features extracted from similarity distributions with hierarchical importance"
       },
       {
-        "id": "implementation",
-        "title": "[Method Section 4 Title]",
-        "summary": "[Brief summary of this methodology section]",
-        "content": "[Detailed description of your implementation details. Replace this placeholder text with your actual implementation information.]",
+        "id": "classification",
+        "title": "Classification Model",
+        "summary": "We employ XGBoost tree-based ensemble model to classify videos as authentic or deepfake based on the extracted features.",
+        "content": "We use XGBoost to classify videos based on the 9-dimensional feature vector. The model is trained with logistic loss and regularization to prevent overfitting, with early stopping and cross-validation for optimal performance.",
         "details": [
-          "[First implementation detail]",
-          "[Second implementation detail]",
-          "[Third implementation detail]",
-          "[Fourth implementation detail]",
-          "[Fifth implementation detail]",
-          "[Sixth implementation detail]"
+          "XGBoost tree-based ensemble classifier",
+          "Logistic loss function with L2 regularization",
+          "Learning rate 0.1, max depth 6, early stopping patience 10",
+          "5-fold cross-validation with GroupKFold for identity separation",
+          "Hyperparameter optimization for weighted F1-score",
+          "Achieves 94.2% accuracy, 94.4% precision, 94.2% recall, and 94.2% F1-score"
         ],
-        "diagram": null
+        "diagram": "assets/images/xgboost_architecture.png",
+        "diagramCaption": "XGBoost gradient boosted tree ensemble architecture for deepfake classification"
       }
     ],
     "relatedWork": [
       {
-        "title": "[Related Work Paper 1 Title]",
-        "authors": "[Authors et al.]",
-        "year": "2023",
-        "relevance": "[How this work relates to your research]"
+        "title": "Two-stream neural networks for tampered face detection",
+        "authors": "Zhou, P., Han, X., Morariu, V. I., & Davis, L. S.",
+        "year": "2017",
+        "relevance": "Machine learning approach to extract synthesis artifacts for distinguishing real from synthesized content"
       },
       {
-        "title": "[Related Work Paper 2 Title]",
-        "authors": "[Authors et al.]",
+        "title": "MesoNet: A compact facial video forgery detection network",
+        "authors": "Afchar, D., Nozick, V., Yamagishi, J., & Echizen, I.",
+        "year": "2018",
+        "relevance": "Compact neural network for detecting facial video forgeries"
+      },
+      {
+        "title": "In ictu oculi: Exposing AI created fake videos by detecting eye blinking",
+        "authors": "Li, Y., Chang, M.-C., & Lyu, S.",
+        "year": "2018",
+        "relevance": "Detection based on unnatural eye blink patterns in deepfakes"
+      },
+      {
+        "title": "Protecting world leaders against deep fakes",
+        "authors": "Agarwal, S., Farid, H., Gu, Y., He, M., Nagano, K., & Li, H.",
+        "year": "2019",
+        "relevance": "Identity-specific detection approach for protecting specific individuals"
+      },
+      {
+        "title": "ArcFace: Additive Angular Margin Loss for Deep Face Recognition",
+        "authors": "Deng, J., Guo, J., Xue, N., & Zafeiriou, S.",
+        "year": "2019",
+        "relevance": "Foundation face recognition system used for biometric feature extraction"
+      },
+      {
+        "title": "Detecting deep-fake videos from phoneme-viseme mismatches",
+        "authors": "Agarwal, S., Farid, H., Fried, O., & Agrawala, M.",
+        "year": "2020",
+        "relevance": "Detection based on inconsistencies between mouth shape dynamics and spoken words"
+      },
+      {
+        "title": "Protecting world leaders against deep fakes using facial, gestural, and vocal mannerisms",
+        "authors": "Bohacek, M., & Farid, H.",
+        "year": "2022",
+        "relevance": "Multi-modal identity-based detection using facial, gestural, and vocal patterns"
+      },
+      {
+        "title": "Audio-visual person-of-interest deepfake detection",
+        "authors": "Cozzolino, D., Pianese, A., Nießner, M., & Verdoliva, L.",
         "year": "2023",
-        "relevance": "[How this work relates to your research]"
+        "relevance": "Audio-visual approach for person-specific deepfake detection"
       }
     ]
   }

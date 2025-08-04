@@ -1,40 +1,34 @@
 {
-  "title": "[Your Paper Title Here]",
-  "subtitle": "[Your Paper Subtitle Here]",
+  "title": "<span class='nowrap'>Detecting Deepfake Talking Heads</span><br><span class='nowrap'>from Facial Biometric Anomalies</span>",
+  "subtitle": "",
   "authors": [
     {
-      "name": "Dr. Alex Smith",
-      "affiliation": "Example University",
-      "website": "https://example.com/alex-smith",
-      "email": "alex.smith@example.edu"
+      "name": "Justin D. Norman",
+      "affiliation": "University of California, Berkeley",
+      "website": "https://justintime.ai",
+      "email": "justin.norman@berkeley.edu"
     },
     {
-      "name": "Prof. Jordan Lee",
-      "affiliation": "Sample Institute of Technology",
-      "website": "https://example.com/jordan-lee",
-      "email": "jordan.lee@sample.edu"
-    },
-    {
-      "name": "Dr. Casey Johnson",
-      "affiliation": "Example University",
-      "website": "",
-      "email": "casey.johnson@example.edu"
+      "name": "Hany Farid",
+      "affiliation": "University of California, Berkeley",
+      "website": "https://farid.berkeley.edu/",
+      "email": "hfarid@berkeley.edu"
     }
   ],
-  "abstract": "[Replace with your paper's abstract. This section should provide a concise summary of your research contribution, methodology, and key results.]",
-  "venue": "[Conference Name or Journal]",
-  "publicationDate": "2024-03-15",
-  "doi": "[DOI if available]",
-  "arxivId": "[arXiv ID if available]",
-  "pdfUrl": "https://example.com/paper.pdf",
-  "codeUrl": "https://github.com/example/neural-architecture",
-  "bibtex": "@inproceedings{placeholder2024,\n  title={[Your Paper Title]},\n  author={[Author Names]},\n  booktitle={[Conference or Journal Name]},\n  year={2024}\n}",
+  "abstract": "A combination of highly realistic voice cloning, along with visually compelling avatar, face-swap, or lip-sync deepfake video generation, makes it relatively easy to create a video of anyone saying anything. Such deepfake impersonations are being used to power frauds, scams, and political disinformation. We describe a forensic technique for detecting deepfake video impersonations that leverages unnatural patterns in facial biometrics. We evaluate this technique across a large dataset of deepfake impersonations and assess its reliability to video laundering and its generalization to previously unseen video deepfake generators.",
+  "venue": "arXiv preprint",
+  "publicationDate": "2025-07-11",
+  "doi": "",
+  "arxivId": "2507.08917",
+  "pdfUrl": "https://arxiv.org/pdf/2507.08917",
+  "codeUrl": "",
+  "bibtex": "@article{norman2025detecting,\n  title={Detecting Deepfake Talking Heads from Facial Biometric Anomalies},\n  author={Norman, Justin D and Farid, Hany},\n  journal={arXiv preprint arXiv:2507.08917},\n  year={2025}\n}",
   "keyContributions": [
-    "[First key contribution of your research]",
-    "[Second key contribution of your research]",
-    "[Third key contribution of your research]"
+    "Novel identity-agnostic forensic technique that leverages facial biometric anomalies without requiring external references",
+    "Simple and lightweight model architecture with 94.9% accuracy that can be easily deployed at the edge for real-time detection",
+    "Robust performance against video laundering and generalization to previously unseen deepfake generators"
   ],
-  "datasetUrl": "https://example.com/dataset",
-  "supplementaryUrl": "https://example.com/supplementary",
-  "slidesUrl": "https://example.com/slides"
+  "datasetUrl": "",
+  "supplementaryUrl": "",
+  "slidesUrl": ""
 }

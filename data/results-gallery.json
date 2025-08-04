@@ -1,52 +1,54 @@
 {
   "results": [
     {
-      "title": "[Result 1 Title]",
-      "description": "[Description of your first result or comparison.]",
-      "src": "assets/images/result-comparison-1.jpg",
-      "placeholder": "assets/images/placeholder-result-1.jpg",
-      "alt": "[Alt text describing your first result image]",
-      "category": "comparison"
+      "title": "Joe Biden - Correctly Classified",
+      "description": "Our model successfully distinguished between authentic Joe Biden footage and deepfake impersonations.",
+      "src": "resources/APAI25-FaceRecognitionForDeepFakeDetection/figures/archive_itw_success/jbiden_real.jpg",
+      "placeholder": "resources/APAI25-FaceRecognitionForDeepFakeDetection/figures/archive_itw_success/jbiden_real.jpg",
+      "alt": "Joe Biden real vs deepfake comparison - correctly classified",
+      "category": "success",
+      "celebrity": "jbiden",
+      "status": "success"
     },
     {
-      "title": "[Result 2 Title]",
-      "description": "[Description of your second result or visualization.]",
-      "src": "assets/images/result-attention-viz.jpg",
-      "placeholder": "assets/images/placeholder-result-2.jpg",
-      "alt": "[Alt text describing your second result image]",
-      "category": "visualization"
+      "title": "Morgan Freeman - Correctly Classified",
+      "description": "Successful detection of Morgan Freeman deepfake impersonations in our in-the-wild evaluation.",
+      "src": "resources/APAI25-FaceRecognitionForDeepFakeDetection/figures/archive_itw_success/mfreeman_real.jpg",
+      "placeholder": "resources/APAI25-FaceRecognitionForDeepFakeDetection/figures/archive_itw_success/mfreeman_real.jpg",
+      "alt": "Morgan Freeman real vs deepfake comparison - correctly classified",
+      "category": "success",
+      "celebrity": "mfreeman",
+      "status": "success"
     },
     {
-      "title": "[Result 3 Title]",
-      "description": "[Description of your third result or benchmark.]",
-      "src": "assets/images/result-benchmarks.jpg",
-      "placeholder": "assets/images/placeholder-result-3.jpg",
-      "alt": "[Alt text describing your third result image]",
-      "category": "metrics"
+      "title": "Ryan Reynolds - Correctly Classified",
+      "description": "Our forensic technique correctly identified deepfake videos of Ryan Reynolds.",
+      "src": "resources/APAI25-FaceRecognitionForDeepFakeDetection/figures/archive_itw_success/rreynolds_real.jpg",
+      "placeholder": "resources/APAI25-FaceRecognitionForDeepFakeDetection/figures/archive_itw_success/rreynolds_real.jpg",
+      "alt": "Ryan Reynolds real vs deepfake comparison - correctly classified",
+      "category": "success",
+      "celebrity": "rreynolds",
+      "status": "success"
     },
     {
-      "title": "[Result 4 Title]",
-      "description": "[Description of your fourth result or application.]",
-      "src": "assets/images/result-realworld.jpg",
-      "placeholder": "assets/images/placeholder-result-4.jpg",
-      "alt": "[Alt text describing your fourth result image]",
-      "category": "application"
+      "title": "Tom Cruise - Correctly Classified",
+      "description": "Accurate classification of Tom Cruise deepfakes, demonstrating robustness across different facial characteristics.",
+      "src": "resources/APAI25-FaceRecognitionForDeepFakeDetection/figures/archive_itw_success/tcruise_real.jpg",
+      "placeholder": "resources/APAI25-FaceRecognitionForDeepFakeDetection/figures/archive_itw_success/tcruise_real.jpg",
+      "alt": "Tom Cruise real vs deepfake comparison - correctly classified",
+      "category": "success",
+      "celebrity": "tcruise",
+      "status": "success"
     },
     {
-      "title": "[Result 5 Title]",
-      "description": "[Description of your fifth result or diagram.]",
-      "src": "assets/images/result-architecture.jpg",
-      "placeholder": "assets/images/placeholder-result-5.jpg",
-      "alt": "[Alt text describing your fifth result image]",
-      "category": "technical"
-    },
-    {
-      "title": "[Result 6 Title]",
-      "description": "[Description of your sixth result or analysis.]",
-      "src": "assets/images/result-efficiency.jpg",
-      "placeholder": "assets/images/placeholder-result-6.jpg",
-      "alt": "[Alt text describing your sixth result image]",
-      "category": "metrics"
+      "title": "Mark Zuckerberg - Misclassified",
+      "description": "The only misclassification in our in-the-wild evaluation, highlighting areas for future improvement.",
+      "src": "resources/APAI25-FaceRecognitionForDeepFakeDetection/figures/archive_itw_fail/mzuck_real.jpg",
+      "placeholder": "resources/APAI25-FaceRecognitionForDeepFakeDetection/figures/archive_itw_fail/mzuck_real.jpg",
+      "alt": "Mark Zuckerberg real vs deepfake comparison - misclassified",
+      "category": "failure",
+      "celebrity": "mzuck",
+      "status": "failure"
     }
   ]
 }

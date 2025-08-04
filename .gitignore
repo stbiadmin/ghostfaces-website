@@ -1,3 +1,12 @@
+# Python scripts (not needed for static website)
+*.py
+
+# Development/source files
+resources/
+assets/images/makeFigures.m
+assets/images/ID_1_2_combined_similarity_distributions.csv
+assets/images/screenshots/
+
 # OS generated files
 .DS_Store
 .DS_Store?
@@ -7,60 +16,11 @@
 ehthumbs.db
 Thumbs.db
 
-# Editor directories and files
-.idea/
+# IDE files
 .vscode/
-*.swp
-*.swo
-*~
-
-# Logs
-logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# Dependency directories
-node_modules/
-
-# Build output
-dist/
-build/
-
-# Local env files
-.env.local
-.env.*.local
+.idea/
 
 # Temporary files
 *.tmp
-*.temp
-.cache/
-
-# Python
-__pycache__/
-*.py[cod]
-*$py.class
-.Python
-venv/
-ENV/
-
-# macOS
-.AppleDouble
-.LSOverride
-
-# Windows
-desktop.ini
-$RECYCLE.BIN/
-
-# Linux
-.directory
-
-# Backup files
 *.bak
-*.backup
 *~
-
-# AI tool directories
-.claude/
-.kiro/

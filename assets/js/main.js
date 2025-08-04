@@ -283,7 +283,7 @@ function updateHeroSection(paperData) {
     // Update title
     const heroTitle = document.getElementById('paper-title');
     if (heroTitle && paperData.title) {
-        heroTitle.textContent = paperData.title;
+        heroTitle.innerHTML = paperData.title;
     }
     
     // Update subtitle
@@ -305,7 +305,7 @@ function updateHeroSection(paperData) {
         // Build authors list with proper comma separation
         const authorsHTML = paperData.authors.map((author, index) => {
             const isLast = index === paperData.authors.length - 1;
-            const separator = isLast ? '' : ', ';
+            const separator = isLast ? '' : ' and ';
             
             if (author.website && author.website.trim() !== '') {
                 return `<a href="${author.website}" class="author-name" target="_blank" rel="noopener noreferrer" aria-label="Visit ${author.name}'s website">${author.name}</a>${separator}`;
@@ -398,9 +398,14 @@ function updateAbstractSection(paperData) {
 
 // Update page metadata
 function updatePageMetadata(paperData) {
-    // Update page title
+    // Update page title - strip HTML tags for browser title
     if (paperData.title) {
-        document.title = paperData.title;
+        // Create a temporary element to parse HTML and extract text
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = paperData.title;
+        const plainTextTitle = tempDiv.textContent || tempDiv.innerText || '';
+        // Replace line breaks with spaces for better title formatting
+        document.title = plainTextTitle.replace(/\s+/g, ' ').trim();
     }
     
     // Update meta description
@@ -451,6 +456,13 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function initializeResultsGallery() {
+    // Set data-count for existing gallery items
+    const gallery = document.getElementById('results-gallery');
+    if (gallery) {
+        const resultItems = gallery.querySelectorAll('.result-item');
+        gallery.setAttribute('data-count', resultItems.length);
+    }
+    
     initializeLazyLoading();
     initializeLightbox();
     initializeTouchSupport();
@@ -825,6 +837,9 @@ function updateResultsGallery(resultsData) {
     // Clear existing content
     gallery.innerHTML = '';
     
+    // Set data-count attribute for CSS styling
+    gallery.setAttribute('data-count', resultsData.results.length);
+    
     // Create result items from data
     resultsData.results.forEach((result, index) => {
         const resultItem = createResultItem(result, index);
@@ -839,32 +854,64 @@ function updateResultsGallery(resultsData) {
 
 function createResultItem(result, index) {
     const item = document.createElement('div');
-    item.className = 'result-item';
-    item.setAttribute('data-category', result.category || 'main');
     
-    item.innerHTML = `
-        <div class="result-media">
-            <img src="${result.placeholder || 'assets/images/placeholder.jpg'}" 
-                 alt="${result.alt || result.title}" 
-                 class="result-image lazy-load"
-                 data-src="${result.src}"
-                 loading="lazy">
-            <div class="result-overlay">
-                <button class="result-zoom-btn" aria-label="View full size image">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="11" cy="11" r="8"></circle>
-                        <path d="m21 21-4.35-4.35"></path>
-                        <path d="M11 8v6"></path>
-                        <path d="M8 11h6"></path>
-                    </svg>
-                </button>
+    // Handle celebrity classification results with special styling
+    if (result.celebrity && result.status) {
+        item.className = `celebrity-pair ${result.status}`;
+        
+        // Get the corresponding deepfake image
+        const realImg = result.src;
+        let fakeImg = realImg.replace('_real.jpg', '_deepfake.jpg');
+        // Check if deepfake variant exists, otherwise try _fake.jpg
+        if (realImg.includes('mfreeman_real') || realImg.includes('rreynolds_real')) {
+            fakeImg = realImg.replace('_real.jpg', '_fake.jpg');
+        }
+        
+        item.innerHTML = `
+            <div class="celebrity-images">
+                <div class="image-container">
+                    <img src="${realImg}" alt="${result.celebrity} real">
+                    <span class="label">Real</span>
+                </div>
+                <div class="image-container">
+                    <img src="${fakeImg}" alt="${result.celebrity} deepfake">
+                    <span class="label">Deepfake</span>
+                </div>
             </div>
-        </div>
-        <div class="result-content">
-            <h3 class="result-title">${result.title}</h3>
-            <p class="result-description">${result.description}</p>
-        </div>
-    `;
+            <div class="result-label">
+                <i class="fas fa-${result.status === 'success' ? 'check' : 'times'}-circle"></i>
+                ${result.title}
+            </div>
+        `;
+    } else {
+        // Standard result item
+        item.className = 'result-item';
+        item.setAttribute('data-category', result.category || 'main');
+        
+        item.innerHTML = `
+            <div class="result-media">
+                <img src="${result.placeholder || 'assets/images/placeholder.jpg'}" 
+                     alt="${result.alt || result.title}" 
+                     class="result-image lazy-load"
+                     data-src="${result.src}"
+                     loading="lazy">
+                <div class="result-overlay">
+                    <button class="result-zoom-btn" aria-label="View full size image">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="m21 21-4.35-4.35"></path>
+                            <path d="M11 8v6"></path>
+                            <path d="M8 11h6"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div class="result-content">
+                <h3 class="result-title">${result.title}</h3>
+                <p class="result-description">${result.description}</p>
+            </div>
+        `;
+    }
     
     return item;
 }
@@ -1177,6 +1224,21 @@ function createMethodologySection(sectionData, index) {
 }
 
 function createDiagramPlaceholder(sectionData) {
+    // Check if there's an actual diagram URL
+    if (sectionData.diagram && sectionData.diagram.trim() !== '') {
+        const caption = sectionData.diagramCaption || '';
+        return `
+            <div class="diagram-container">
+                <img src="${sectionData.diagram}" 
+                     alt="${sectionData.title} diagram" 
+                     class="diagram-image"
+                     loading="lazy">
+                ${caption ? `<p class="diagram-credit">${caption}</p>` : ''}
+            </div>
+        `;
+    }
+    
+    // Fall back to SVG placeholder if no diagram URL
     const diagramIcons = {
         'architecture': `<rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
                         <path d="M9 9h6v6H9z"></path>

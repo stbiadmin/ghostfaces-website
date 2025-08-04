@@ -1,10 +1,10 @@
-# Academic Paper Website
+# Detecting Deepfake Talking Heads from Facial Biometric Anomalies
 
-A responsive, single-page website template for showcasing academic research papers. Built with modern web technologies and optimized for GitHub Pages deployment.
+A research website showcasing the paper "Detecting Deepfake Talking Heads from Facial Biometric Anomalies" by Justin D. Norman and Hany Farid from UC Berkeley. This website demonstrates our novel forensic technique for detecting deepfake video impersonations using facial biometric anomalies.
 
-**[View Live Demo →](https://stbiadmin.github.io/papersite-template/)**
+**[View Live Demo →](https://yourusername.github.io/deepfakes-website/)**
 
-![Website Preview](assets/images/front_page.png)
+![Website Preview](assets/images/deepfake2019-2025.png)
 
 ## Features
 
